@@ -1,17 +1,17 @@
-import { Formik, Form, Field } from "formik";
-// import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 import css from "../ContactForm/ContactForm.module.css";
 
-// const FeedbackSchema = Yup.object().shape({
-//   username: Yup.string()
-//     .min(2, "Too Short!")
-//     .max(50, "Too Long!")
-//     .required("Required"),
-//   number: Yup.string()
-//     .email("Must be a valid like 111-11-11!")
-//     .required("Required"),
-// });
+const FeedbackSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  number: Yup.string()
+    .email("Must be a valid like 111-11-11!")
+    .required("Required"),
+});
 
 const initialValues = {
   username: "",
@@ -30,9 +30,9 @@ const ContactForm = ({ onAdd }) => {
 
   return (
     <Formik
-      // validationSchema={FeedbackSchema}
+      validationSchema={FeedbackSchema}
       initialValues={initialValues}
-      // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
     >
       <Form className={css.form} onSubmit={handleSubmit}>
         <label className={css.label}>Name</label>
@@ -42,6 +42,7 @@ const ContactForm = ({ onAdd }) => {
           type="text"
           name="username"
         />
+        <ErrorMessage name="username" as="span" />
         <label className={css.label}>Number</label>
         <Field
           className={css.field}
@@ -49,6 +50,7 @@ const ContactForm = ({ onAdd }) => {
           type="tel"
           name="number"
         />
+        <ErrorMessage name="number" as="span" />
         <button className={css.btn} type="submit">
           Add contact
         </button>
