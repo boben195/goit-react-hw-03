@@ -3,13 +3,13 @@ import * as Yup from "yup";
 
 import css from "../ContactForm/ContactForm.module.css";
 
-const FeedbackSchema = Yup.object().shape({
+const ContactSchema = Yup.object().shape({
   username: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
   number: Yup.string()
-    .email("Must be a valid like 111-11-11!")
+    .min(7, "Must be a valid like 111-11-11!")
     .required("Required"),
 });
 
@@ -25,12 +25,12 @@ const ContactForm = ({ onAdd }) => {
       username: e.target.elements.username.value,
       number: e.target.elements.number.value,
     });
-    e.target.reset;
+    e.resetForm();
   };
 
   return (
     <Formik
-      validationSchema={FeedbackSchema}
+      validationSchema={ContactSchema}
       initialValues={initialValues}
       onSubmit={handleSubmit}
     >
@@ -47,7 +47,7 @@ const ContactForm = ({ onAdd }) => {
         <Field
           className={css.field}
           placeholder="123-45-67"
-          type="tel"
+          type="text"
           name="number"
         />
         <ErrorMessage name="number" as="span" />
