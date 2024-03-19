@@ -19,13 +19,18 @@ const initialValues = {
 };
 
 const ContactForm = ({ onAdd }) => {
-  const handleSubmit = (e) => {
-    onAdd({
-      id: Date.now(),
-      username: e.target.elements.username.value,
-      number: e.target.elements.number.value,
-    });
-    e.resetForm();
+  // const handleSubmit = (e) => {
+  //   onAdd({
+  //     id: Date.now(),
+  //     username: e.target.elements.username.value,
+  //     number: e.target.elements.number.value,
+  //   });
+  //   e.resetForm();
+  // };
+
+  const handleSubmit = (values, { resetForm }) => {
+    onAdd({ ...values });
+    resetForm();
   };
 
   return (
@@ -34,7 +39,7 @@ const ContactForm = ({ onAdd }) => {
       initialValues={initialValues}
       onSubmit={handleSubmit}
     >
-      <Form className={css.form} onSubmit={handleSubmit}>
+      <Form className={css.form}>
         <label className={css.label}>Name</label>
         <Field
           className={css.field}
